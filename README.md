@@ -9,6 +9,8 @@ Use at your own risk. :)
 ## Recommended Software, Modules, and Snapins
 
 1. [PowerGUI](http://en.community.dell.com/techcenter/powergui/m/) - Awesome IDE for PowerShell
+2. [PyCharm](https://www.jetbrains.com/pycharm/) - Awesome IDE for Python
+3. [GitHub for Windows](https://windows.github.com/) - Windows version of GitHub
 2. [PowerCLI](https://www.vmware.com/support/developer/PowerCLI/) - VMware cmdlets
 3. [Tintri Automation Toolkit](https://support.tintri.com/download/) - Tintri cmdlets
 3. [Cisco UCS PowerTool](http://software.cisco.com/download/release.html?mdfid=283850978&flowid=25021&softwareid=284574017&release=1.2.1&relind=AVAILABLE&rellifecycle=&reltype=latest) - UCS cmdlets
