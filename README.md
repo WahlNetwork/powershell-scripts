@@ -17,4 +17,6 @@ A number of scripts used to make day-to-day life easier for administrators and e
 
 1. [PowerGUI](http://en.community.dell.com/techcenter/powergui/m/) - Awesome IDE for PowerShell
 2. [PyCharm](https://www.jetbrains.com/pycharm/) - Awesome IDE for Python
+3. [Sublime Text 3](http://www.sublimetext.com/3) - Great script editor
+4. [Sublime Text PowerShell Syntax](https://github.com/SublimeText/PowerShell) - A proper syntax for PowerShell
 3. [GitHub for Windows](https://windows.github.com/) - Windows version of GitHub
