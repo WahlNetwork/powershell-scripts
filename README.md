@@ -5,4 +5,4 @@ This repository contains a number of scripts that I have written or enhanced to 
 
 **Use at your own risk. :)**
 
-See the [Wiki](https://github.com/WahlNetwork/Scripts/wiki) for software and module suggestions, cmdlet examples, and more.
+See the [Wiki](https://github.com/WahlNetwork/Scripts/wiki) for software and [module suggestions](https://github.com/WahlNetwork/Scripts/wiki/Software-Suggestions), [cmdlet examples](https://github.com/WahlNetwork/Scripts/wiki/Cmdlet-Examples), and more.
