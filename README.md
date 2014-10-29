@@ -1,7 +1,6 @@
 PowerShell, PowerCLI, and Python Scripts
 ================
 
-## Synopsis
 A number of scripts used to make day-to-day life easier for administrators and engineers.
 
 **Use at your own risk. :)**
