@@ -1,10 +1,11 @@
 ﻿#requires -Version 2
 
 # Variables
-$vcenter = 'vc1.glacier.local'
-$Cluster = 'Lab'
-$Datastores = 'NAS2-Lab'
-$VMFolder = 'Staging'
+
+$vcenter = 'vc1.glacier.local' 				# Connects to this vCenter Server.
+$Cluster = 'Lab'							# Adds templates to this cluster.
+$Datastores = 'NAS2-Lab'					# Searches these datastores for templates.
+$VMFolder = 'Staging'						# Imports templates into this folder.
 
 # Import modules or snapins
 $powercli = Get-PSSnapin -Name VMware.VimAutomation.Core -Registered
