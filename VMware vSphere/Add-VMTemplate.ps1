@@ -33,7 +33,7 @@ try
 }
 catch 
 {
-    throw 'Could not load the required VMware.VimAutomation.Vds cmdlets'
+    throw 'Could not load the required VMware.VimAutomation.Core cmdlets'
 }
 
 # Ignore self-signed SSL certificates for vCenter Server (optional)
