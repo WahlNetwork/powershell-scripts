@@ -5,7 +5,7 @@ This repository contains a number of scripts that I have written or enhanced to 
 
 # Installation
 
-The code assumes that you've already deployed at least one Brik into your environment and have completed the initial configuration process. Make sure you have PowerShell version 4 or higher installed on your workstation.
+Make sure you have PowerShell version 4 or higher installed on your workstation. I'd also suggest installing PowerCLI version 6 or higher.
 
 1. Download the contents of this repository to your workstation.
 2. Copy over the scripts found in any of the directories (such as `Slack`, `VMware NSX`, `VMware vSphere`, or others) into the `WahlNetwork` folder.
