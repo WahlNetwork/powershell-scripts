@@ -1,0 +1,6 @@
+Put your token in here and remove all other text!
+
+Validate or update your Slack tokens:
+https://api.slack.com/tokens
+Create a Slack token:
+https://api.slack.com/web
