@@ -8,10 +8,10 @@ This repository contains a number of scripts that I have written or enhanced to 
 The code assumes that you've already deployed at least one Brik into your environment and have completed the initial configuration process. Make sure you have PowerShell version 4 or higher installed on your workstation.
 
 1. Download the contents of this repository to your workstation.
-2. Copy over the scripts found in any of the directories (such as `Slack`, `VMware NSX`, `VMware vSphere`, or others) into th e `WahlNetwork` folder.
+2. Copy over the scripts found in any of the directories (such as `Slack`, `VMware NSX`, `VMware vSphere`, or others) into the `WahlNetwork` folder.
 2. Copy the contents of the `WahlNetwork` folder onto your workstation into the path `$Home\Documents\WindowsPowerShell\Modules\`
 
-Launch PowerShell and make sure `Set-ExecutionPolicy` is set to `RemoteSigned` or `Bypass`. To load the module, use `Import-Module Rubrik`.
+Launch PowerShell and make sure `Set-ExecutionPolicy` is set to `RemoteSigned` or `Bypass`. To load the module, use `Import-Module WahlNetwork`.
 
 # Usage Instructions
 
