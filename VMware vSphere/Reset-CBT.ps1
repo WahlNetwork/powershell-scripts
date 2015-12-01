@@ -114,12 +114,12 @@ function Reset-CBT
             }
             else 
             {
-                if ($_.PowerState -ne 'PoweredOn') 
+                if ($_.PowerState -ne 'PoweredOn' -and $EnableCBT -ne $true) 
                 {
                     Write-Warning -Message "Skipping $_ - Not powered on"
                     $notfixedvm += $_
                 }
-                if ($_.ExtensionData.Snapshot -ne $null) 
+                if ($_.ExtensionData.Snapshot -ne $null -and $EnableCBT -ne $true) 
                 {
                     Write-Warning -Message "Skipping $_ - Snapshots found"
                     $notfixedvm += $_
