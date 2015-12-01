@@ -12,6 +12,25 @@ function Reset-CBT
             GitHub: chriswahl
             .LINK
             https://github.com/WahlNetwork/powershell-scripts
+            .EXAMPLE
+            Reset-CBT -VM 'WAHLNETWORK' -vCenter VCENTER.DOMAIN.LOCAL
+            Disables CBT for a VM named WAHLNETWORK, then creates and consolidates (remove) a snapshot to flush the CBT file. The assumption here is that your backup software will then re-enable CBT during the next backup job.
+            .EXAMPLE
+            Reset-CBT -VM 'WAHLNETWORK' -vCenter VCENTER.DOMAIN.LOCAL -NoSnapshots
+            Disables CBT for a VM named WAHLNETWORK but will not use a snapshot to flush the CBT file. This is useful for environments where you simply want to disable CBT and do not have backup software that will go back and re-enable CBT.
+            .EXAMPLE
+            Reset-CBT -VM $VMlist -vCenter VCENTER.DOMAIN.LOCAL
+            Disables CBT for all VMs in the list $VMlist, which can be useful for more targeted lists of virtual machines that don't easily match a regular expression.
+            Here are some methods to build $VMlist
+
+            $VMlist = Get-VM -Location (Get-Folder 'Test Servers')
+            $VMlist = Get-VM -Location (Get-DataCenter 'Austin')
+            .EXAMPLE
+            Get-VM -Location (Get-Folder 'Test Servers') | Reset-CBT -vCenter VCENTER.DOMAIN.LOCAL
+            Similar to the previous example, except that it uses a pipeline for the list of virtual machines.
+            .EXAMPLE
+            Reset-CBT -VM 'WAHLNETWORK' -vCenter VCENTER.DOMAIN.LOCAL -EnableCBT
+            Enables CBT for a VM named WAHLNETWORK. No other activities are performed. This is useful for when you want to enable CBT for one or more virtual machines.
     #>
 
     [CmdletBinding()]
@@ -25,7 +44,10 @@ function Reset-CBT
         [String]$vCenter,
         [Parameter(Mandatory = $false,Position = 2,HelpMessage = 'Enables CBT for any VMs found with it disabled')]
         [ValidateNotNullorEmpty()]
-        [Switch]$EnableCBT
+        [Switch]$EnableCBT,
+        [Parameter(Mandatory = $false,Position = 3,HelpMessage = 'Prevents usings snapshots from flushing the CBT file')]
+        [ValidateNotNullorEmpty()]
+        [Switch]$NoSnapshots
     )
 
     Process {
@@ -88,18 +110,20 @@ function Reset-CBT
             {
                 try 
                 {
-                    Write-Verbose -Message "Reconfiguring $($_.name) to disable CBT"
+                    Write-Verbose -Message "Reconfiguring $($_.name) to disable CBT" -Verbose
                     $vmconfigspec.ChangeTrackingEnabled = $false
                     $_.ExtensionData.ReconfigVM($vmconfigspec)
 
+                    if ($NoSnapshots -ne $true)
+                    {
+                        Write-Verbose -Message "Creating a snapshot on $($_.name) to clear CBT file" -Verbose
+                        $null = New-Snapshot -VM $_ -Name 'CBT Cleanup'
 
-                    Write-Verbose -Message "Creating a snapshot on $($_.name) to clear CBT file"
-                    New-Snapshot -VM $_ -Name 'CBT Cleanup'
-
-                    Write-Verbose -Message "Removing snapshot on $($_.name)"
-                    $_ |
-                    Get-Snapshot |
-                    Remove-Snapshot -RemoveChildren -Confirm:$false
+                        Write-Verbose -Message "Removing snapshot on $($_.name)" -Verbose
+                        $null = $_ |
+                        Get-Snapshot |
+                        Remove-Snapshot -RemoveChildren -Confirm:$false
+                    }
                 }
                 catch 
                 {
@@ -108,7 +132,7 @@ function Reset-CBT
             }
             elseif ($EnableCBT -and $_.ExtensionData.Config.ChangeTrackingEnabled -eq $false)
             {
-                Write-Verbose -Message "Reconfiguring $($_.name) to enable CBT"
+                Write-Verbose -Message "Reconfiguring $($_.name) to enable CBT" -Verbose
                 $vmconfigspec.ChangeTrackingEnabled = $true
                 $_.ExtensionData.ReconfigVM($vmconfigspec)
             }
