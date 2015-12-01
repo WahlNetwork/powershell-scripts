@@ -1,10 +1,9 @@
-﻿#requires -PSSnapin VMware.VimAutomation.Core
-#Requires -Version 2
+﻿#Requires -Version 2
 function Reset-CBT
 {
     <#  
             .SYNOPSIS
-            Resets the Change Block Tracking (CBT) file for a Virtual Machines
+            Resets the Change Block Tracking (CBT) file for affected Virtual Machines
             .DESCRIPTION
             The Reset-CBT cmdlet will reset the Change Block Tracking (CBT) file for a Virtual Machine affected by issues or corruption with the CBT file.
             .NOTES
@@ -12,7 +11,7 @@ function Reset-CBT
             Twitter: @ChrisWahl
             GitHub: chriswahl
             .LINK
-            https://github.com/rubrikinc/PowerShell-Module
+            https://github.com/WahlNetwork/powershell-scripts
     #>
 
     [CmdletBinding()]
@@ -20,7 +19,7 @@ function Reset-CBT
         [Parameter(Mandatory = $true,Position = 0,HelpMessage = 'Virtual Machine',ValueFromPipeline = $true)]
         [Alias('Name')]
         [ValidateNotNullorEmpty()]
-        [String]$VM,
+        $VM,
         [Parameter(Mandatory = $true,Position = 1,HelpMessage = 'vCenter FQDN or IP address')]
         [ValidateNotNullorEmpty()]
         [String]$vCenter,
@@ -118,12 +117,13 @@ function Reset-CBT
                 if ($_.PowerState -ne 'PoweredOn') 
                 {
                     Write-Warning -Message "Skipping $_ - Not powered on"
+                    $notfixedvm += $_
                 }
                 if ($_.ExtensionData.Snapshot -ne $null) 
                 {
                     Write-Warning -Message "Skipping $_ - Snapshots found"
+                    $notfixedvm += $_
                 }
-                $notfixedvm += $_
             }
         }
 
